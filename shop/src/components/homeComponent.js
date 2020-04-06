@@ -3,24 +3,33 @@ import Table from './home/table'
 import axios from 'axios'
 
 class HomeComponent extends React.Component{
-  url = "http://localhost:2000"
-  state = {
-    items: this.indexContent()
+
+  constructor(){
+    super()
+    this.url = "http://localhost:2000"
   }
+  state = { items: [] }
+
   render(){
+    this.indexContent()
     return(
       <Table content={this.state.items}/>
     )
   }
 
-  indexContent(){
+  async indexContent(){
     let data = [];
-    axios.get(this.url+"/items").then(function(response){
+    await axios.get(this.url+"/items").then(function(response){
       for(let row of response.data.items){
         data.push(row)
       }
     })
-    return data
+    if(!this.state.items.length){
+      this.setState({
+        items: data
+      })
+      return 0;
+    }
   }
 }
 

@@ -27,23 +27,17 @@ function TableHead(){
 }
 
 function TableBody(props){
-  let bodyContent = props.content
-  console.log(bodyContent)
-  for(let row of bodyContent){
-    console.log(row)
-  }
-  bodyContent = bodyContent.map((row) =>{
-    console.log("staa")
-    return `<tr key=${row.id}>
-        <td>${row.name}</td>
-        <td>${row.section}</td>
-      </tr>`
+  let bodyContent = props.content.map((row) => {
+    return (
+      <tr key={row.id}>
+        <td>{row.name}</td>
+        <td>{row.section}</td>
+      </tr>
+    )
   })
   return(
     <tbody>
-      <tr>
         {bodyContent}
-      </tr>
     </tbody>
   )
 }
