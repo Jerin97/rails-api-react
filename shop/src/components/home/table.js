@@ -6,9 +6,9 @@ export function Table(props){
     <div>
       <table className="table">
         <TableHead/>
-        <TableBody content = {props.content}/>
+        <TableBody content = {props.content} handleDelete={props.handleDelete}/>
       </table>
-      <Form updateIndex={props.updateIndex}/>
+      <Form handleFormSubmit={props.handleFormSubmit}/>
     </div>
   )
 }
@@ -34,6 +34,7 @@ function TableBody(props){
       <tr key={row.id}>
         <td>{row.name}</td>
         <td>{row.section}</td>
+        <td><button onClick={()=> props.handleDelete(row.id)} className="btn btn-danger">Delete</button></td>
       </tr>
     )
   })

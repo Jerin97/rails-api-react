@@ -36,6 +36,7 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   def destroy
     @item.destroy
+    render json: {status: 200}
   end
 
   private

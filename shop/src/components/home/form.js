@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 
 class Form extends React.Component{
   initialState = {
@@ -9,33 +8,25 @@ class Form extends React.Component{
 
   state = this.initialState
   render(){
+    const {name, section} = this.state
     return(
       <form>
-        <input type="text" name="name" onChange={this.handleChange}/>
-        <input type="text" name="section" onChange={this.handleChange}/>
-        <button type="button" className="btn btn-info" onClick={this.handleSubmit}>Create</button>
+        <input type="text" name="name" onChange={this.handleChange} value={name}/>
+        <input type="text" name="section" onChange={this.handleChange} value={section}/>
+        <button type="button" className="btn btn-info" onClick={()=>this.props.handleFormSubmit(this.state)}>Create</button>
       </form>
     )
   }
+
+  // handleSubmit = () =>{
+  //   this.setState(this.initialState)
+  // }
 
   handleChange = event =>{
     let { name, value } = event.target
     this.setState({
       [name]: value
     })
-  }
-
-  handleSubmit = () =>{
-    axios.post('http://localhost:2000/items', this.state).then(response =>{
-        if(response.status === 201){
-          console.log(response)
-          this.props.updateIndex
-        }
-        else{
-          console.log("error")
-        }
-      }
-    )
   }
 }
 
