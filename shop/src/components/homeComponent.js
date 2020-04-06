@@ -13,7 +13,7 @@ class HomeComponent extends React.Component{
   render(){
     this.indexContent()
     return(
-      <Table content={this.state.items}/>
+      <Table content={this.state.items} updateIndex={this.indexContent}/>
     )
   }
 

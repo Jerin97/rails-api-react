@@ -1,4 +1,5 @@
 import React from 'react'
+import Form from './form'
 
 export function Table(props){
   return(
@@ -7,6 +8,7 @@ export function Table(props){
         <TableHead/>
         <TableBody content = {props.content}/>
       </table>
+      <Form updateIndex={props.updateIndex}/>
     </div>
   )
 }
@@ -35,11 +37,7 @@ function TableBody(props){
       </tr>
     )
   })
-  return(
-    <tbody>
-        {bodyContent}
-    </tbody>
-  )
+  return <tbody>{bodyContent}</tbody>
 }
 
 export default Table;
