@@ -6,7 +6,9 @@ export function Table(props){
     <div>
       <table className="table">
         <TableHead/>
-        <TableBody content = {props.content} handleDelete={props.handleDelete}/>
+        <TableBody content = {props.content}
+          handleDelete={props.handleDelete}
+          handleUpdate={props.handleUpdate}/>
       </table>
       <Form handleFormSubmit={props.handleFormSubmit}/>
     </div>
@@ -32,9 +34,11 @@ function TableBody(props){
   let bodyContent = props.content.map((row) => {
     return (
       <tr key={row.id}>
-        <td>{row.name}</td>
-        <td>{row.section}</td>
-        <td><button onClick={()=> props.handleDelete(row.id)} className="btn btn-danger">Delete</button></td>
+        <td id={row.id+'name'}>{row.name}</td>
+        <td id={row.id+'section'}>{row.section}</td>
+        <td><button onClick={()=> props.handleDelete(row.id)} className="btn btn-danger">Delete</button>&nbsp;&nbsp;
+            <span id={row.id}><button  onClick={()=>props.handleUpdate(row.id)} className="btn">Update</button></span>
+        </td>
       </tr>
     )
   })
