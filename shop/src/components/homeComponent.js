@@ -3,15 +3,14 @@ import Table from './home/table'
 import axios from 'axios'
 
 class HomeComponent extends React.Component{
-
-  constructor(){
-    super()
-    this.url = "http://localhost:2000"
-  }
   state = { items: [] }
+  url = "http://localhost:2000/items"
+
+  componentDidMount(){
+    this.indexContent()
+  }
 
   render(){
-    this.indexContent()
     return(
       <Table content={this.state.items}
       handleFormSubmit={this.handleFormSubmit}
@@ -19,22 +18,18 @@ class HomeComponent extends React.Component{
     )
   }
 
-  indexContent(afterSubmitCall=false){
-    let data = [];
-    axios.get(this.url+"/items").then((response)=>{
-      let { items:i } = response.data
-      // this.setState({
-      //   items: i
-      // })
-      console.log(i)
+  indexContent(){
+    axios.get(this.url).then((response)=>{
+        this.setState({
+          items: response.data.items
+        })
     })
-
   }
 
   handleFormSubmit = item =>{
-    axios.post('http://localhost:2000/items', item).then(response =>{
+    axios.post(this.url, item).then(response =>{
         if(response.status === 201){
-          this.indexContent(true)
+          this.indexContent()
         }
         else{
           console.log("error")
@@ -44,9 +39,9 @@ class HomeComponent extends React.Component{
   }
 
   handleDelete = item_id =>{
-    axios.delete('http://localhost:2000/items/'+item_id).then(response=>{
-      if(response.status == 200)
-        this.indexContent(true)
+    axios.delete(this.url+'/'+item_id).then(response=>{
+      if(response.status === 200)
+        this.indexContent()
     })
   }
 }
