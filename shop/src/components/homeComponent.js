@@ -19,20 +19,16 @@ class HomeComponent extends React.Component{
     )
   }
 
-  async indexContent(afterSubmitCall=false){
+  indexContent(afterSubmitCall=false){
     let data = [];
-    await axios.get(this.url+"/items").then(function(response){
-      for(let row of response.data.items){
-        data.push(row)
-      }
+    axios.get(this.url+"/items").then((response)=>{
+      let { items:i } = response.data
+      // this.setState({
+      //   items: i
+      // })
+      console.log(i)
     })
-    //optimise this section not compatible when no content
-    if(!this.state.items.length || (afterSubmitCall)){
-      this.setState({
-        items: data
-      })
-      return 0;
-    }
+
   }
 
   handleFormSubmit = item =>{
@@ -57,3 +53,5 @@ class HomeComponent extends React.Component{
 
 
 export default HomeComponent
+
+
